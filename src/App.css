@@ -1,0 +1,13 @@
+:root {
+  --font-primary-color: #fff;
+  --bg-color: #000;
+  --primary-color: #FFD600;
+  --border-color: #FFD600;
+}
+
+.board {
+  display: flex;
+  gap: 16px;
+  min-height: calc(100vh - 12em);
+  padding-top: 16px;
+}
