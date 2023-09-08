@@ -11,7 +11,7 @@ const initialState: MoviesDBState = {
   recentlyViewed: [],
   moviesList: [],
   seriesList: [],
-  pictureToView: null,
+  showToView: null,
   isSearching: false,
   status: Status.Idle,
 };

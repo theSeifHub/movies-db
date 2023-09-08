@@ -64,6 +64,35 @@
   }
 }
 
+.shows-list{
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-evenly;
+
+  .show-item {
+    .show-container {
+      border: green 1px solid;
+      background-size: contain;
+      height: 444px;
+      width: 300px;
+      display: flex;
+      flex-direction: column;
+      
+
+      .rating {
+        border: green 1px solid;
+        text-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.5);
+      }
+      .show-title {
+        margin-top: auto;
+        font-size: x-large;
+        text-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.5);
+      }
+    }
+  }
+}
 
 .board {
   display: flex;

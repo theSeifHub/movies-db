@@ -3,7 +3,7 @@ import { GetMoviesResponse } from "../types";
 import OMDbAxios from "./OMDbAxios";
 
 // actions
-export const viewPicture = createAction<number>('VIEW_PICTURE');
+export const viewShow = createAction<number>('VIEW_SHOW');
 
 // thunks
 export const getMoviesList = createAsyncThunk(

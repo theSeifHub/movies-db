@@ -7,7 +7,7 @@ export const store = configureStore({
 
 export const selectMoviesList = (state: RootState) => state.moviesList;
 export const selectSeriesList = (state: RootState) => state.seriesList;
-export const selectPictureToView = (state: RootState) => state.pictureToView;
+export const selectPictureToView = (state: RootState) => state.showToView;
 export const selectIsSearching = (state: RootState) => state.isSearching;
 export const selectStatus = (state: RootState) => state.status;
 

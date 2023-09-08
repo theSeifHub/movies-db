@@ -1,11 +1,14 @@
-interface IAbstractPicture {
+interface IAbstractShow {
+  id: number | string;
   title: string;
   posterUrl: string;
+  rating: string;
+  description: string;
 }
 
-export interface IMovie extends IAbstractPicture {}
+export interface IMovie extends IAbstractShow {}
 
-export interface ISeries extends IAbstractPicture {}
+export interface ISeries extends IAbstractShow {}
 
 export enum Status{
   Idle = 'idle',
@@ -15,12 +18,12 @@ export enum Status{
 }
 
 export interface MoviesDBState {
-  recentlyViewed: IAbstractPicture[];
+  recentlyViewed: IAbstractShow[];
   isSearching: boolean;
-  searchResults?: (IAbstractPicture | undefined)[];
+  searchResults?: (IAbstractShow | undefined)[];
   moviesList: IMovie[];
   seriesList: ISeries[];
-  pictureToView: IAbstractPicture | null,
+  showToView: IAbstractShow | null,
   status: Status;
 }
 
