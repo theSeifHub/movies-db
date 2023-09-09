@@ -32,7 +32,7 @@ const ShowBox = ({
   return (
     <li className='show-item'>
       <div className='show-container' style={{
-        backgroundImage: `linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.2)), url(${posterUrl})`
+        backgroundImage: `url(${posterUrl})`
       }}>
         <span className='rating'>{showRating}</span>
         <span className='show-title'>{showTitle}</span>
