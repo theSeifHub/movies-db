@@ -61,6 +61,7 @@ export interface MoviesDBState {
   seriesList: ISeries[];
   showToPreview: IAbstractShow | null;
   showInDetails: IAbstractShowFullDetails | null;
+  showReviews: INYTimesReview[];
 }
 
 export interface SearchResults {
@@ -70,5 +71,23 @@ export interface SearchResults {
 }
 export interface ViewShowPayload{
   showId: string;
-  showType: ShowType
+  showType: ShowType;
+}
+
+
+export interface INYTimesReview {
+  abstract: string;
+  web_url: string;
+  snippet: string;
+  source: string;
+  headline: {
+    main: string;
+    print_headline: string;
+    name: string | null;
+  };
+  pub_date: string;
+  document_type: "article";
+  section_name: "Movies";
+  type_of_material: "Review";
+  word_count: number;
 }
