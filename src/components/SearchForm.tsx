@@ -1,26 +1,22 @@
 import React, { useState } from 'react';
-import { FiSearch, FiX } from "react-icons/fi";
+import { FiSearch } from "react-icons/fi";
 import { useAppDispatch } from '../app/hooks';
-// import {
-//   getMoviesList, searchMovies,
-// } from '../app/actionsAndThunks';
+import { searchMovies, searchSeries } from '../app/actionsAndThunks';
+import { ShowType } from '../types';
 
+interface Props {
+  currentTab: ShowType;
+}
 
-const SearchForm = () => {
+const SearchForm = ({ currentTab }: Props) => {
   const dispatch = useAppDispatch();
   const [searchQuery, setSearchQuery] = useState('');
 
   const handleSearch = (query: string) => {
     if (query) {
-      console.log("🚀 ~ handleSearch ~ query", query);
-      // dispatch(searchMovies(query));
+      if (currentTab === ShowType.Movie) dispatch(searchMovies(query));
+      else dispatch(searchSeries(query));
     }
-  }
-
-  const handleClearSearch = () => {
-    setSearchQuery('');
-    console.log("🚀 ~ handleClearSearch");
-    // dispatch(getMoviesList());
   }
 
   return (
@@ -48,19 +44,6 @@ const SearchForm = () => {
             handleSearch(searchQuery);
           }}
         />
-         
-        <button
-          title='Search'
-          aria-label='Clear Search'
-          disabled={!searchQuery}
-          className='clear-btn'
-          onClick={(e) => {
-            e.preventDefault();
-            handleClearSearch();
-          }}
-        >
-          <FiX className='btn-icon' />
-        </button>
       </div>
     </form>
   )

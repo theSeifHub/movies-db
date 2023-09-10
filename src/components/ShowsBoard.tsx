@@ -11,24 +11,28 @@ import {
 import { IAbstractShow, ShowType, Status } from '../types';
 import ShowBox from './ShowBox';
 
-const ShowsBoard = (): JSX.Element => {
+interface Props {
+  currentTab: ShowType;
+  onSwitchTabs: (newTab: ShowType) => void;
+}
+
+const ShowsBoard = ({currentTab, onSwitchTabs} : Props): JSX.Element => {
   const moviesList = useAppSelector(selectMoviesList);
   const seriesList = useAppSelector(selectSeriesList);
   const storeStatus = useAppSelector(selectStatus);
 
-  const [currentTab, setCurrentTab] = useState<ShowType>(ShowType.Movie);
   const [showsList, setShowsList] = useState<IAbstractShow[]>(moviesList);
 
 
   useEffect(() => {
     if (currentTab === ShowType.Series) setShowsList(seriesList);
     else setShowsList(moviesList);
-  }, [currentTab]);
+  }, [currentTab, moviesList, seriesList]);
 
   const handleTabClick = (e: SyntheticEvent, tabType: ShowType) => {
     e.preventDefault();
     if (tabType !== currentTab) {
-      setCurrentTab(tabType);
+      onSwitchTabs(tabType);
     }
   }
 
