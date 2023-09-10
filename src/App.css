@@ -90,22 +90,29 @@
     }
   }
 
+  .yellow-border {
+    border: var(--border-color) 5px solid;
+  }
+
   .show-item {
 
     .show-container {
       background-size: contain;
-      background-blend-mode: color-burn;
+      background-repeat: no-repeat;
       height: 444px;
-      width: 300px;
+      width: 292px;
       display: flex;
       flex-direction: column;
 
-      .rating {
+      .show-year {
         height: 44px;
         padding: 10px;
         text-shadow: 0px 0px 9px rgba(0, 0, 0, 0.9);
         background-image: linear-gradient(to top, rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.8));
+        font-size: larger;
+        font-weight: bold;
       }
+
       .show-title {
         margin-top: auto;
         height: 150px;
@@ -148,4 +155,95 @@
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
   }
+}
+
+.show-preview-container {
+  z-index: 1;
+  border: var(--border-color) 5px solid;
+  padding: 20px;
+  width: 100%;
+  margin-right: 12px;
+  margin-right: 12px;
+
+  .show-preview-details {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    .show-preview-title {
+      font-size: xx-large;
+    }
+
+    .show-preview-plot {
+      font-size: larger;
+    }
+
+    .show-details-lists {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 16px;
+
+      .preview-list-container {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        max-width: 240px;
+
+        .list-title {
+          font-size: larger;
+          font-weight: bold;
+        }
+
+        .rating-star {
+          color: var(--primary-color);
+          font-size: x-large;
+          margin-right: 5px;
+        }
+
+        .genre-list {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 6px;
+
+          .genre-item {
+            color: #FFF;
+            background: #A4A4A4;
+            padding: 6px;
+            border-radius: 16px;
+            text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.9);
+          }
+
+        }
+
+        .directors-list {
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+        }
+
+        .languages-list {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
+
+          .language-item {
+            color: var(--primary-color);
+          }
+        }
+
+      }
+
+    }
+
+    .more-info-btn {
+      background-color: var(--primary-color);
+      padding: 12px 24px;
+      font-size: larger;
+      font-weight: bolder;
+      border-radius: 20px;
+    }
+
+  }
+
 }

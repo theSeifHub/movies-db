@@ -16,8 +16,9 @@ export const store = configureStore({
 
 export const selectMoviesList = (state: RootState) => state.moviesList;
 export const selectSeriesList = (state: RootState) => state.seriesList;
-export const selectShowToPreview = (state: RootState) => state.showToPreview;
+export const selectSelectedShowId = (state: RootState) => state.selectedShowId;
 export const selectRecentlyViewed = (state: RootState) => state.recentlyViewed;
-export const selectShowInDetails = (state: RootState) => state.showInDetails;
+export const selectSelectedShowInDetails = (state: RootState) => state.selectedShowInDetails;
 export const selectIsSearching = (state: RootState) => state.isSearching;
-export const selectStatus = (state: RootState) => state.status;
+export const selectSearchStatus = (state: RootState) => state.searchStatus;
+export const selectGetOneStatus = (state: RootState) => state.getOneStatus;

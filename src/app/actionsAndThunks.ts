@@ -1,10 +1,15 @@
 import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
-import { IMovieFullDetails, ISeriesFullDetails, INYTimesReview, SearchResults, ViewShowPayload } from "../types";
+import {
+  IShowFullDetails,
+  INYTimesReview,
+  SearchResults,
+  ViewShowPayload,
+} from "../types";
 import OMDbAxios from "../axios/OMDbInstance";
 import NYTimesAxios from "../axios/NYTimesInstance";
 
 // actions
-export const viewShow = createAction<ViewShowPayload>('show/view');
+export const viewShow = createAction<ViewShowPayload>('show/viewFull');
 
 // thunks
 export const searchMovies = createAsyncThunk(
@@ -20,13 +25,13 @@ export const searchMovies = createAsyncThunk(
   },
 );
 
-export const getMovie = createAsyncThunk(
-  'movies/getOneAsync',
-  async (movieId: string, thunkAPI): Promise<IMovieFullDetails> => {
+export const getShow = createAsyncThunk(
+  'show/getOneAsync',
+  async (viewShowPayload: ViewShowPayload, thunkAPI): Promise<IShowFullDetails> => {
     const response = await OMDbAxios.get("", {
       params: {
-        i: movieId,
-        type: "movie",
+        i: viewShowPayload.showId,
+        type: viewShowPayload.showType,
       }
     });
     return response.data;
@@ -39,20 +44,6 @@ export const searchSeries = createAsyncThunk(
     const response = await OMDbAxios.get("", {
       params: {
         s: searchQuery,
-        type: "series",
-      }
-    });
-    return response.data;
-  },
-);
-
-
-export const getSeries = createAsyncThunk(
-  'series/getOneAsync',
-  async (seriesId: string, thunkAPI): Promise<ISeriesFullDetails> => {
-    const response = await OMDbAxios.get("", {
-      params: {
-        i: seriesId,
         type: "series",
       }
     });

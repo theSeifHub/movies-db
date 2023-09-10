@@ -1,33 +1,44 @@
-import React from 'react';
-// import {} from "react-icons/fi";
-import { useAppDispatch } from "../app/hooks";
-// import { viewShow } from "../app/actionsAndThunks";
+import React, { SyntheticEvent } from 'react';
+import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { getShow } from "../app/actionsAndThunks";
+import { IShow } from '../types';
+import ShowPreviewBox from './ShowPreviewBox';
+import { selectSelectedShowId } from '../app/store';
 
 type Props = {
-  showId: number | string;
-  showTitle: string;
-  showRating?: string;
-  posterUrl: string;
-
+  showInfo: IShow;
+  isSelected: boolean;
 }
 
-const ShowBox = ({
-  showId, showTitle, posterUrl, showRating,
-}: Props): JSX.Element => {
+const ShowBox = ({ showInfo, isSelected}: Props): JSX.Element => {
   const dispatch = useAppDispatch();
-  // const handleMoreInfoClick = () => {
-  //   dispatch(viewShow({showId as string}));
-  // };
+  const selectedShowId = useAppSelector(selectSelectedShowId);
+  
+  const handleBoxClick = (e: SyntheticEvent) => {
+    e.preventDefault();
+    if (showInfo.imdbID !== selectedShowId) {
+      console.log("box clicked: ", showInfo.imdbID);
+      dispatch(getShow({
+        showId: showInfo.imdbID,
+        showType: showInfo.Type,
+      }));
+    }
+  };
 
   return (
-    <li className='show-item'>
-      <div className='show-container' style={{
-        backgroundImage: `url(${posterUrl})`
-      }}>
-        <span className='rating'>{showRating}</span>
-        <span className='show-title'>{showTitle}</span>
-      </div>
-    </li>
+    <>
+      <li className={`show-item ${isSelected ? "yellow-border" : ""}`}>
+        <div
+          className='show-container'
+          style={{backgroundImage: `url(${showInfo.Poster})`}}
+          onClick={(e)  => handleBoxClick(e)}
+        >
+          <span className='show-year'>{showInfo.Year}</span>
+          <span className='show-title'>{showInfo.Title}</span>
+        </div>
+      </li>
+      {isSelected && <ShowPreviewBox />}
+    </>
   )
 }
 

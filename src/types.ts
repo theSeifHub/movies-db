@@ -8,16 +8,15 @@ export enum ShowType {
   Series = "series",
 }
 
-export interface IAbstractShow {
+export interface IShow {
   Title: string;
   Year: string;
   imdbID: string;
   Type: ShowType;
   Poster: string;
-  Rated: string;
 }
 
-interface IAbstractShowFullDetails extends IAbstractShow {
+export interface IShowFullDetails extends IShow {
   Rated: string;
   Released: string;
   Runtime: string;
@@ -40,11 +39,11 @@ interface IAbstractShowFullDetails extends IAbstractShow {
   Response: string;
 }
 
-export interface IMovie extends IAbstractShow {}
-export interface IMovieFullDetails extends IAbstractShowFullDetails {}
+export interface IMovie extends IShow {}
+export interface IMovieFullDetails extends IShowFullDetails {}
 
-export interface ISeries extends IAbstractShow {}
-export interface ISeriesFullDetails extends IAbstractShowFullDetails {}
+export interface ISeries extends IShow {}
+export interface ISeriesFullDetails extends IShowFullDetails {}
 
 export enum Status{
   Idle = 'idle',
@@ -54,19 +53,20 @@ export enum Status{
 }
 
 export interface MoviesDBState {
-  status: Status;
+  searchStatus: Status;
+  getOneStatus: Status;
   isSearching: boolean;
-  recentlyViewed: IAbstractShow[];
+  recentlyViewed: IShow[];
   moviesList: IMovie[];
   seriesList: ISeries[];
-  showToPreview: IAbstractShow | null;
-  showInDetails: IAbstractShowFullDetails | null;
+  selectedShowId: string | null;
+  selectedShowInDetails: IShowFullDetails | null;
   showReviews: INYTimesReview[];
 }
 
 export interface SearchResults {
   Response: boolean;
-  Search?: IAbstractShow[];
+  Search?: IShow[];
   totalResults?: number;
 }
 export interface ViewShowPayload{

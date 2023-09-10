@@ -1,14 +1,15 @@
 import React, { ReactNode, SyntheticEvent, useEffect, useState } from 'react'
 import { FiLoader } from "react-icons/fi";
 import { MdSentimentDissatisfied } from "react-icons/md";
-import { searchMovies } from '../app/actionsAndThunks';
-import { useAppSelector, useAppDispatch } from '../app/hooks';
+import { useAppSelector } from '../app/hooks';
 import { 
+  selectIsSearching,
   selectMoviesList,
   selectSeriesList,
-  selectStatus,
+  selectSearchStatus,
+  selectSelectedShowId,
 } from '../app/store';
-import { IAbstractShow, ShowType, Status } from '../types';
+import { IShow, ShowType, Status } from '../types';
 import ShowBox from './ShowBox';
 
 interface Props {
@@ -17,11 +18,13 @@ interface Props {
 }
 
 const ShowsBoard = ({currentTab, onSwitchTabs} : Props): JSX.Element => {
+  const storeStatus = useAppSelector(selectSearchStatus);
+  const isSearching = useAppSelector(selectIsSearching);
   const moviesList = useAppSelector(selectMoviesList);
   const seriesList = useAppSelector(selectSeriesList);
-  const storeStatus = useAppSelector(selectStatus);
+  const selectedShowId = useAppSelector(selectSelectedShowId);
 
-  const [showsList, setShowsList] = useState<IAbstractShow[]>(moviesList);
+  const [showsList, setShowsList] = useState<IShow[]>(moviesList);
 
 
   useEffect(() => {
@@ -55,10 +58,11 @@ const ShowsBoard = ({currentTab, onSwitchTabs} : Props): JSX.Element => {
     );
   };
 
-  const renderPreview = (status: Status): ReactNode => {
-    if (status === Status.Loading) {
+
+  const renderPreview = (): ReactNode => {
+    if (isSearching) {
       return (<FiLoader className='loader-icon' />);
-    } else if (status === Status.Failed) {
+    } else if (storeStatus === Status.Failed) {
       return (
         <div className='no-results'>
           <h3>No Shows Found</h3>
@@ -66,18 +70,15 @@ const ShowsBoard = ({currentTab, onSwitchTabs} : Props): JSX.Element => {
           <MdSentimentDissatisfied fontSize='50' color='#ed0' />
         </div>
       );
-    } else if (status === Status.Success) {
+    } else if (storeStatus === Status.Success) {
       return (
         <ul className='shows-board'>
-          { showsList.map((show, i) => (
+          { showsList.map((show) => (
             <ShowBox
               key={show.imdbID}
-              showId={show.imdbID}
-              showTitle={show.Title}
-              posterUrl={show.Poster}
-              showRating={show.Rated}
-            />
-          ))}
+              showInfo={show}
+              isSelected={!!selectedShowId && selectedShowId === show.imdbID}
+            />) )}
         </ul>
       );
     }
@@ -86,7 +87,7 @@ const ShowsBoard = ({currentTab, onSwitchTabs} : Props): JSX.Element => {
   return (
     <div className='shows-board'>
       {showsTabs()}
-      {renderPreview(storeStatus)}
+      {renderPreview()}
     </div>
   )
 }
