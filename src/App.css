@@ -71,9 +71,23 @@
   gap: 20px;
   justify-content: space-evenly;
   
-  .board-title {
+  .tabs-header {
+    display: flex;
     width: 100%;
-    margin: 15px;
+    margin-top: 24px;
+    margin-bottom: 24px;
+
+    .tab-link {
+      border: none;
+      background-color: transparent;
+      color: var(--font-primary-color);
+      width: 50%;
+      height: 48px;
+      font-size: x-large;
+    }
+    .active-tab {
+      border-bottom: var(--border-color) 3px solid;
+    }
   }
 
   .show-item {

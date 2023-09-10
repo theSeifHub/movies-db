@@ -1,24 +1,55 @@
-import React, { ReactNode, useEffect } from 'react'
+import React, { ReactNode, SyntheticEvent, useEffect, useState } from 'react'
 import { FiLoader } from "react-icons/fi";
 import { MdSentimentDissatisfied } from "react-icons/md";
 import { searchMovies } from '../app/actionsAndThunks';
 import { useAppSelector, useAppDispatch } from '../app/hooks';
 import { 
   selectMoviesList,
-  selectIsSearching,
+  selectSeriesList,
   selectStatus,
 } from '../app/store';
-import { Status } from '../types';
+import { IAbstractShow, ShowType, Status } from '../types';
 import ShowBox from './ShowBox';
 
 const ShowsBoard = (): JSX.Element => {
+  const moviesList = useAppSelector(selectMoviesList);
+  const seriesList = useAppSelector(selectSeriesList);
   const storeStatus = useAppSelector(selectStatus);
-  const showsList = useAppSelector(selectMoviesList);
-  const isSearching = useAppSelector(selectIsSearching);
 
-  // useEffect(() => {
-  //   if (storeStatus === Status.Idle) {}
-  // }, []);
+  const [currentTab, setCurrentTab] = useState<ShowType>(ShowType.Movie);
+  const [showsList, setShowsList] = useState<IAbstractShow[]>(moviesList);
+
+
+  useEffect(() => {
+    if (currentTab === ShowType.Series) setShowsList(seriesList);
+    else setShowsList(moviesList);
+  }, [currentTab]);
+
+  const handleTabClick = (e: SyntheticEvent, tabType: ShowType) => {
+    e.preventDefault();
+    if (tabType !== currentTab) {
+      setCurrentTab(tabType);
+    }
+  }
+
+  const showsTabs = () => {
+    return (
+      <div className="tabs-header">
+				<button
+          className={`tab-link ${currentTab === ShowType.Movie ? "active-tab" : ""}`}
+          onClick={(e: SyntheticEvent) => handleTabClick(e, ShowType.Movie)}
+        >
+          Movies
+        </button>
+				<button
+          className={`tab-link ${currentTab === ShowType.Series ? "active-tab" : ""}`}
+          onClick={(e: SyntheticEvent) => handleTabClick(e, ShowType.Series)}
+        >
+          Series
+        </button>
+			</div>
+    );
+  };
 
   const renderPreview = (status: Status): ReactNode => {
     if (status === Status.Loading) {
@@ -26,14 +57,9 @@ const ShowsBoard = (): JSX.Element => {
     } else if (status === Status.Failed) {
       return (
         <div className='no-results'>
-          <h3>
-            No Shows Found
-          </h3>
+          <h3>No Shows Found</h3>
           <br />
-          <MdSentimentDissatisfied
-            fontSize='50'
-            color='#ed0'
-          />
+          <MdSentimentDissatisfied fontSize='50' color='#ed0' />
         </div>
       );
     } else if (status === Status.Success) {
@@ -55,7 +81,7 @@ const ShowsBoard = (): JSX.Element => {
 
   return (
     <div className='shows-board'>
-      <h2 className='board-title'>Movies</h2>
+      {showsTabs()}
       {renderPreview(storeStatus)}
     </div>
   )
