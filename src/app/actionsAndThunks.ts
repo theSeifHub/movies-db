@@ -60,24 +60,29 @@ export const getShowReviews = createAsyncThunk(
       }
     });
 
-    console.log("🚀 ~ file: getShowsreview ~ response:", response.data.response);
+    const filteredResponse: INYTimesReview[] = [];
 
-    const filteredResponse = response.data.response.docs.map((doc: any) => ({
-      abstract: doc.abstract,
-      snippet: doc.snippet,
-      headline: {
-        main: doc.headline.main,
-        name: doc.headline.name,
-        print_headline: doc.headline.print_headline,
-      },
-      pub_date: doc.pub_date,
-      web_url: doc.web_url,
-      word_count: doc.word_count,
-      source: doc.source,
-      section_name: doc.section_name,
-      type_of_material: doc.type_of_material,
-      document_type: doc.document_type,
-    } as INYTimesReview));
+    response.data.response.docs.forEach((doc: any, i: number) => {
+      if (i < 5) {
+        filteredResponse.push({
+          abstract: doc.abstract,
+          snippet: doc.snippet,
+          headline: {
+            main: doc.headline.main,
+            name: doc.headline.name,
+            print_headline: doc.headline.print_headline,
+          },
+          pub_date: new Date(doc.pub_date).toDateString(),
+          web_url: doc.web_url,
+          word_count: doc.word_count,
+          source: doc.source,
+          section_name: doc.section_name,
+          type_of_material: doc.type_of_material,
+          document_type: doc.document_type,
+        } as INYTimesReview);
+      }
+    });
+
 
     return filteredResponse;
   },

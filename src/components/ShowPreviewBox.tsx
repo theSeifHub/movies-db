@@ -4,6 +4,7 @@ import { useAppSelector } from "../app/hooks";
 import { selectGetOneStatus, selectSelectedShowInDetails } from '../app/store';
 import { Status } from '../types';
 import { FiLoader } from 'react-icons/fi';
+import { useNavigate } from 'react-router-dom';
 
 const RatingStars = (ratingString: string): JSX.Element => {
   let keyCounter = 0;
@@ -29,12 +30,12 @@ const RatingStars = (ratingString: string): JSX.Element => {
 
 
 const ShowPreviewBox = (): JSX.Element | null => {
+  const navigate = useNavigate();
   const selectedShowInDetails = useAppSelector(selectSelectedShowInDetails);
   const getOneStatus = useAppSelector(selectGetOneStatus);
-
   
   const handleMoreInfoClick = () => {
-    console.log("🚀 MoreInfo Clicked")
+    navigate(`/${selectedShowInDetails?.imdbID}`);
   };
 
   if (getOneStatus === Status.Loading) {

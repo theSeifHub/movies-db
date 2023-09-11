@@ -22,3 +22,4 @@ export const selectSelectedShowInDetails = (state: RootState) => state.selectedS
 export const selectIsSearching = (state: RootState) => state.isSearching;
 export const selectSearchStatus = (state: RootState) => state.searchStatus;
 export const selectGetOneStatus = (state: RootState) => state.getOneStatus;
+export const selectShowReviews = (state: RootState) => state.showReviews;
