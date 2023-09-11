@@ -1,10 +1,11 @@
 import React from 'react';
 import { PiStarFill, PiStarHalfFill, PiStar } from "react-icons/pi";
-import { useAppSelector } from "../app/hooks";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { selectGetOneStatus, selectSelectedShowInDetails } from '../app/store';
-import { Status } from '../types';
+import { IShow, Status } from '../types';
 import { FiLoader } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
+import { addToRecentlyViewed } from '../app/actionsAndThunks';
 
 const RatingStars = (ratingString: string): JSX.Element => {
   let keyCounter = 0;
@@ -33,8 +34,16 @@ const ShowPreviewBox = (): JSX.Element | null => {
   const navigate = useNavigate();
   const selectedShowInDetails = useAppSelector(selectSelectedShowInDetails);
   const getOneStatus = useAppSelector(selectGetOneStatus);
+  const dispatch = useAppDispatch();
   
   const handleMoreInfoClick = () => {
+    dispatch(addToRecentlyViewed({
+      imdbID: selectedShowInDetails?.imdbID!,
+      Poster: selectedShowInDetails?.Poster!,
+      Title: selectedShowInDetails?.Title!,
+      Type: selectedShowInDetails?.Type!,
+      Year: selectedShowInDetails?.Year!,
+    } as IShow));
     navigate(`/${selectedShowInDetails?.imdbID}`);
   };
 

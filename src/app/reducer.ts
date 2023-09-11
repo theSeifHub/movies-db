@@ -3,9 +3,9 @@ import {
   PayloadAction,
 } from "@reduxjs/toolkit";
 import {
-  viewShow, searchMovies, searchSeries, getShow, getShowReviews,
+  addToRecentlyViewed, searchMovies, searchSeries, getShow, getShowReviews, getRecentlyViewed,
 } from "./actionsAndThunks";
-import { MoviesDBState, Status, ViewShowPayload } from "../types";
+import { MoviesDBState, Status, RecentlyViewedPayload } from "../types";
 
 const initialState: MoviesDBState = {
   recentlyViewed: [],
@@ -21,11 +21,21 @@ const initialState: MoviesDBState = {
 
 const moviesReducer = createReducer(initialState, (builder) => {
   builder
-    // view show details 
-    // .addCase(viewShow, (state, action: PayloadAction<ViewShowPayload>) => {
-    //   const showsList = action.payload.showType === "movie" ? state.moviesList : state.seriesList;
-    //   state.selectedShowId = showsList.find(show => show.imdbID === action.payload.showId)!.imdbID;
-    // })
+    // recently viewed list
+    .addCase(addToRecentlyViewed, (state, action: PayloadAction<RecentlyViewedPayload>) => {
+      let recentlyViewedLS = localStorage.getItem("recentlyViewedShows");
+      let recentlyViewedArray: RecentlyViewedPayload[] = [];
+      if (recentlyViewedLS) recentlyViewedArray = JSON.parse(recentlyViewedLS);
+      recentlyViewedArray.push(action.payload);
+      localStorage.setItem("recentlyViewedShows", JSON.stringify(recentlyViewedArray));
+      state.recentlyViewed = [...recentlyViewedArray];
+    })
+    .addCase(getRecentlyViewed, (state) => {
+      let recentlyViewedLS = localStorage.getItem("recentlyViewedShows");
+      let recentlyViewedArray: RecentlyViewedPayload[] = [];
+      if (recentlyViewedLS) recentlyViewedArray = JSON.parse(recentlyViewedLS);
+      state.recentlyViewed = [...recentlyViewedArray];
+    })
     // search movies
     .addCase(searchMovies.pending, (state) => {
       state.searchStatus = Status.Loading;

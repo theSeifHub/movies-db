@@ -1,5 +1,32 @@
 @import "./constants.css";
 
+
+.slider {
+  margin: 36px;
+  padding: 12px;
+  .slider-item {
+    width: max-content;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    border: red 3px solid;
+
+    .slider-img {
+      margin: 5px;
+      height: 222px;
+      width: 150px;
+    }
+
+    .img-caption {
+      width: 100%;
+      color: var(--font-primary-color);
+      text-align: center;
+    }
+  }
+}
+
+
+
 .header {
   display: flex;
   align-items: center;

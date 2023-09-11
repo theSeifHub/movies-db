@@ -74,6 +74,7 @@ export interface ViewShowPayload{
   showType: ShowType;
 }
 
+export interface RecentlyViewedPayload extends IShow {}
 
 export interface INYTimesReview {
   abstract: string;

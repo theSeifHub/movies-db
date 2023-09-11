@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import '../styles/landing.css';
 import Header from '../components/Header';
 import ShowsBoard from '../components/ShowsBoard';
+import RecentlyViewedSlider from '../components/RecentlyViewedSlider';
 import { ShowType } from '../types';
 
 function Landing() {
@@ -11,6 +12,7 @@ function Landing() {
   return (
     <>
       <Header currentTab={currentTab} />
+      <RecentlyViewedSlider />
       <ShowsBoard currentTab={currentTab} onSwitchTabs={handleTabChange} />
     </>
   );

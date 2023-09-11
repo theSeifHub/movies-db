@@ -4,12 +4,14 @@ import {
   INYTimesReview,
   SearchResults,
   ViewShowPayload,
+  RecentlyViewedPayload,
 } from "../types";
 import OMDbAxios from "../axios/OMDbInstance";
 import NYTimesAxios from "../axios/NYTimesInstance";
 
 // actions
-export const viewShow = createAction<ViewShowPayload>('show/viewFull');
+export const addToRecentlyViewed = createAction<RecentlyViewedPayload>('show/addRecentlyViewed');
+export const getRecentlyViewed = createAction('show/getRecentlyViewed');
 
 // thunks
 export const searchMovies = createAsyncThunk(
