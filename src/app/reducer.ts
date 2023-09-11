@@ -41,7 +41,7 @@ const moviesReducer = createReducer(initialState, (builder) => {
       state.searchStatus = Status.Loading;
       state.isSearching = true;
     }).addCase(searchMovies.fulfilled, (state, action) => {
-      if (action.payload.Response) {
+      if (action.payload.Response === "True") {
         state.searchStatus = Status.Success;
         state.moviesList = action.payload.Search!;
       } else state.searchStatus = Status.Failed;
@@ -56,7 +56,7 @@ const moviesReducer = createReducer(initialState, (builder) => {
       state.searchStatus = Status.Loading;
       state.isSearching = true;
     }).addCase(searchSeries.fulfilled, (state, action) => {
-      if (action.payload.Response) {
+      if (action.payload.Response  === "True") {
         state.searchStatus = Status.Success;
         state.seriesList = action.payload.Search!;
       } else state.searchStatus = Status.Failed;
@@ -72,7 +72,7 @@ const moviesReducer = createReducer(initialState, (builder) => {
       state.selectedShowId = action.meta.arg.showId
       state.selectedShowInDetails = null;
     }).addCase(getShow.fulfilled, (state, action) => {
-      if (action.payload.Response) {
+      if (action.payload.Response === "True") {
         state.getOneStatus = Status.Success;
         state.selectedShowInDetails = action.payload!;
       } else state.getOneStatus = Status.Failed;

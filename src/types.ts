@@ -36,7 +36,7 @@ export interface IShowFullDetails extends IShow {
   BoxOffice: string;
   Production: string;
   Website: string;
-  Response: string;
+  Response: "True" | "False";
 }
 
 export interface IMovie extends IShow {}
@@ -65,7 +65,7 @@ export interface MoviesDBState {
 }
 
 export interface SearchResults {
-  Response: boolean;
+  Response: "True" | "False";
   Search?: IShow[];
   totalResults?: number;
 }
