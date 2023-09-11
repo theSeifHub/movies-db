@@ -1,18 +1,4 @@
-:root {
-  --font-primary-color: #fff;
-  --bg-color: #000;
-  --primary-color: #FFD600;
-  --border-color: #FFD600;
-}
-
-.app {
-  background-color: var(--bg-color);
-  color: var(--font-primary-color);
-  width: 100%;
-  min-height: 100vh;
-  padding: 20px;
-  padding-top: 30px;
-}
+@import "./constants.css";
 
 .header {
   display: flex;
@@ -23,6 +9,7 @@
   .title {
     text-align: center;
     margin-bottom: 15px;
+
     .movies {
       color: #C5C5C5;
     }
@@ -48,7 +35,6 @@
         height: 3em;
         padding-left: 1em;
         border: none;
-        /* width: 100px; */
         outline: none;
         border-radius: 8px;
       }
@@ -64,13 +50,13 @@
   }
 }
 
-.shows-board{
+.shows-board {
   list-style: none;
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
   justify-content: space-evenly;
-  
+
   .tabs-header {
     display: flex;
     width: 100%;
@@ -85,6 +71,7 @@
       height: 48px;
       font-size: x-large;
     }
+
     .active-tab {
       border-bottom: var(--border-color) 3px solid;
     }

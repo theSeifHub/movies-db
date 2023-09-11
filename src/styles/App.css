@@ -1,0 +1,11 @@
+@import "./constants.css";
+
+.app {
+  background-color: var(--bg-color);
+  color: var(--font-primary-color);
+  width: 100%;
+  min-height: 100vh;
+  padding: 20px;
+  padding-top: 30px;
+}
+
