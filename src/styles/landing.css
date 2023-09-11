@@ -1,6 +1,14 @@
 @import "./constants.css";
 
 
+.recently-viewed-collapse-btn {
+  border: none;
+  background: transparent;
+  padding: 12px 0;
+  font-size: larger;
+  color: var(--font-primary-color);
+}
+
 .slider {
   margin: 36px;
   padding: 12px;
@@ -9,7 +17,6 @@
     height: max-content;
     display: flex;
     flex-direction: column;
-    border: red 3px solid;
 
     .slider-img {
       margin: 5px;

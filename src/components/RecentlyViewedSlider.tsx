@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { FiChevronDown, FiChevronUp } from "react-icons/fi"
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -12,6 +13,26 @@ const settings = {
   speed: 500,
   slidesToShow: 4,
   slidesToScroll: 1,
+  responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 3,
+      }
+    },
+    {
+      breakpoint: 600,
+      settings: {
+        slidesToShow: 2,
+      }
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        slidesToShow: 1,
+      }
+    }
+  ]
 };
 
 const RecentlyViewedSlider = (): JSX.Element => {
@@ -22,18 +43,29 @@ const RecentlyViewedSlider = (): JSX.Element => {
   }, []);
 
   const recentlyViewedShows = useAppSelector(selectRecentlyViewed);
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   return (
-    <Slider {...settings} className='slider'>
-      {recentlyViewedShows.map((show, i) =>
-        <div key={i}>
-          <div className='slider-item'>
-            <img src={show.Poster} className='slider-img' alt={show.Title}></img>
-            <span className='img-caption'>{show.Title}</span>
-          </div>
-        </div>
-      )}
-    </Slider>
+    <div>
+      <button className="recently-viewed-collapse-btn" onClick={() => setIsCollapsed(!isCollapsed)}>
+        Recently Viewed {isCollapsed
+          ? <FiChevronUp style={{ fontSize: "xx-large", transform: "translateY(30%)" }} />
+          : <FiChevronDown style={{ fontSize: "xx-large", transform: "translateY(30%)" }} />
+        }
+      </button>
+
+      <div style={{ display: isCollapsed ? "none" : "block"}}>
+        <Slider {...settings} className='slider'>
+          {recentlyViewedShows.map((show, i) =>
+            <div key={i}>
+              <div className='slider-item'>
+                <img src={show.Poster} className='slider-img' alt={show.Title}></img>
+              </div>
+            </div>
+          )}
+        </Slider>
+      </div>
+    </div>
   )
 }
 
