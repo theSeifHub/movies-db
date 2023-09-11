@@ -67,7 +67,7 @@ const ShowsBoard = ({currentTab, onSwitchTabs} : Props): JSX.Element => {
         <div className='no-results'>
           <h3>No Shows Found</h3>
           <br />
-          <MdSentimentDissatisfied fontSize='50' color='#ed0' />
+          <MdSentimentDissatisfied className="sad-emoji" />
         </div>
       );
     } else if (storeStatus === Status.Success) {

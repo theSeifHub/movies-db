@@ -8,13 +8,13 @@
 
   .show-main-header {
     display: flex;
-    flex-direction: column;
     margin-bottom: 50px;
 
     .details-poster {
       width: max-content;
       height: max-content;
       border: var(--border-color) 2px solid;
+      margin-right: 24px;
     }
     
     .show-main-details {
@@ -60,10 +60,10 @@
     display: flex;
     justify-content: space-between;
     .directors {
-      width: 50% ;
+      width: 100%;
     }
     .cast {
-      width: 50%;
+      width: 100%;
     }
   }
 
@@ -92,5 +92,21 @@
         text-decoration: none;
       }
     }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .directors-n-cast {
+    flex-direction: column;
+
+    .directors {
+      margin-bottom: 16px;
+    }
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .show-main-header {
+    flex-direction: column;
   }
 }
